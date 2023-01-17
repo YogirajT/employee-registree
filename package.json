@@ -1,0 +1,21 @@
+{
+  "name": "employee-registree",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "https://github.com/YogirajT/employee-registree.git",
+  "author": "YogirajT",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "backend-start": "yarn workspace backend dev",
+    "backend-build": "yarn workspace backend build",
+    "frontend-start": "yarn workspace frontend start",
+    "frontend-build": "yarn workspace frontend build",
+    "config-build": "yarn workspace @employee-registree/config build"
+  }
+}

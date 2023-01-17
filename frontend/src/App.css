@@ -1,0 +1,165 @@
+@font-face {
+  font-family: 'OpenSansCondensed';
+  src: local('OpenSansCondensed'), url(./fonts/OpenSansCondensed-Light.ttf) format('truetype');
+  font-size: 16px;
+}
+
+body {
+  background-size: cover;
+  font-family: OpenSansCondensed;
+  margin: 0px;
+}
+
+#app {
+  height: 100vh;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.loginForm__form {
+  padding: 10px;
+  border: 2px solid #61dafb;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px #000;
+  transform: scale(1.3);
+}
+
+.registrationForm__form,.UserInfo {
+  transform: scale(1.3);
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #61dafb;
+  box-shadow: 0px 0px 15px #000;
+  position: relative;
+}
+
+.loginForm__formContainer {
+  width: 100%;
+  height: 85vh;
+  justify-content: center;
+}
+
+.registrationForm__formContainer,.UserInfocontainer {
+  width: 100%;
+  height: 85vh;
+  justify-content: center;
+  margin-top: 75px;
+}
+
+.loginForm__heading {
+  margin: 10px 0px;
+  font-size: 12px;
+}
+
+.Signup_Link{
+  color: #17a2b8;
+  cursor: pointer;
+}
+
+.Web_Title {
+  background: -webkit-linear-gradient(45deg, #09009f, #00ff95 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  min-height: 2.75rem;
+}
+
+.SlideIn-appear {
+  transform: translateX(30px);
+  opacity: 0;
+}
+.SlideIn-appear.SlideIn-appear-active {
+  opacity: 1;
+  transform: translateX(0);;
+  transition: all 0.6s linear;
+}
+.SlideIn-enter {
+    opacity: 0;
+    transform: translateX(30px);
+}
+.SlideIn-enter.SlideIn-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.2s linear 0.4s;
+}
+.SlideIn-leave {
+    opacity: 1.0;
+    transform: translateX(0);
+}
+.SlideIn-leave.SlideIn-leave-active {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    transform: translateX(-30px);
+    transition: all 0.2s linear;
+}
+
+.ReactModal__Content {
+  background-color: midnightblue;
+}
+
+.image__Circle {
+  position: absolute;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  border: 2px solid #61dafb;
+  top: -55px;
+  left: 50%;
+  transform: translate(-50%,0%);
+  background-color: #282c34;
+}
+
+.image__Circle > img {
+  border-radius: 50%;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+#app, #app > span {
+  overflow-x: hidden !important;
+}
+
+a {
+  text-decoration: none;
+}
