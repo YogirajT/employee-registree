@@ -3,7 +3,7 @@ import { ActionLogResponse, ActionLogType, DepartmentResponse } from "@employee-
 import { IocConainerTypes } from "../common/inversify-containers/types";
 import ActionLogRepository from "../repositories/action-log.repository";
 import { ObjectId } from "mongodb";
-import { actionLogToReponseTransformer } from "./transformers/actoin-log.transformers";
+import { actionLogToReponseTransformer } from "./transformers/action-log.transformers";
 
 @injectable()
 export default class ActionLogDomain {

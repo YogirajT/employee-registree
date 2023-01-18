@@ -12,10 +12,10 @@
     "packages/*"
   ],
   "scripts": {
-    "backend-start": "yarn workspace backend dev",
-    "backend-build": "yarn workspace backend build",
-    "frontend-start": "yarn workspace frontend start",
-    "frontend-build": "yarn workspace frontend build",
-    "config-build": "yarn workspace @employee-registree/config build"
+    "start:backend": "yarn workspace backend dev",
+    "start:frontend": "yarn workspace frontend start",
+    "build:backend": "yarn workspace backend build",
+    "build:frontend": "yarn workspace frontend build",
+    "build:config": "yarn workspace @employee-registree/config build"
   }
 }

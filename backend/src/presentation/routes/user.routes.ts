@@ -3,7 +3,10 @@ import container from "../../common/inversify-containers";
 import UserController from "../controllers/users.controller";
 import { IocConainerTypes } from "../../common/inversify-containers/types";
 import PassportService from "../../service/passport.service";
-import { authMiddleware } from "../../domain/middlewares/auth.middleware";
+import {
+  adminAuthMiddleware,
+  authMiddleware,
+} from "../../domain/middlewares/auth.middleware";
 
 const router = new Router();
 
@@ -14,18 +17,28 @@ const passportService = container.get<PassportService>(
   IocConainerTypes.PassportService
 );
 
-router.get("/:id/action-logs", async (ctx) => {
-  await controller.getActionLogs(ctx);
-});
+router.get(
+  "/:id/action-logs",
+  passportService.getPassportInstance().authenticate("jwt", { session: false }),
+  authMiddleware(),
+  async (ctx) => {
+    await controller.getActionLogs(ctx);
+  }
+);
 
-router.get("/:id", async (ctx) => {
-  await controller.getById(ctx);
-});
+router.get(
+  "/:id",
+  passportService.getPassportInstance().authenticate("jwt", { session: false }),
+  authMiddleware(),
+  async (ctx) => {
+    await controller.getById(ctx);
+  }
+);
 
 router.put(
   "/:id",
   passportService.getPassportInstance().authenticate("jwt", { session: false }),
-  authMiddleware(),
+  adminAuthMiddleware(),
   async (ctx) => {
     //@ts-ignore
     await controller.updateById(ctx);
@@ -35,7 +48,7 @@ router.put(
 router.delete(
   "/:id",
   passportService.getPassportInstance().authenticate("jwt", { session: false }),
-  authMiddleware(),
+  adminAuthMiddleware(),
   async (ctx) => {
     await controller.deleteById(ctx);
   }
@@ -48,7 +61,7 @@ router.get("/", async (ctx) => {
 router.post(
   "/",
   passportService.getPassportInstance().authenticate("jwt", { session: false }),
-  authMiddleware(),
+  adminAuthMiddleware(),
   async (ctx) => {
     await controller.save(ctx);
   }

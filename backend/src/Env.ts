@@ -4,12 +4,16 @@ enum APP_ENVS {
     DEVELOPMENT= "development"
 }
 
-const DEFAULT_PORT = 4000;
+const DEFAULT_PORT = 8081;
 
 const SALT_LEN = 8;
 
 const DEFAULT_PASSWORD = "password"
 const DEFAULT_SUPER_PASSWORD = "password"
+
+const DEFAULT_JWT_SECRET = "0gKLsQiNRMrAMaO8mhIaV96GQhRyLSiBTKxHYBqOkSB7pRyHzZ3hBLIPXuS4amm";
+
+const DEFAULT_MONGO_URL = "mongodb://mongo1:27017?directConnection=true";
 
 export class EnvVars {
 
@@ -30,11 +34,11 @@ export class EnvVars {
   }
 
   get dbConnectionUrl(): string {
-    return process.env.MONGO_URL!;
+    return process.env.MONGO_URL || DEFAULT_MONGO_URL;
   }
 
   get jwtSecret(): string {
-    return process.env.JWT_SECRET!;
+    return process.env.JWT_SECRET || DEFAULT_JWT_SECRET;
   }
 
   get saltLen(): number {

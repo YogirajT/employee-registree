@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
+    "outDir": "./build",
     "typeRoots": ["./node_modules/@types"],
     "types": ["reflect-metadata", "jest", "node"],
     "experimentalDecorators": true,

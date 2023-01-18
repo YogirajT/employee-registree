@@ -1,46 +1,55 @@
 services:
+
   mongo1:
     hostname: mongo1
     image: mongo:4.2.23-bionic
     expose:
       - 27017
     ports:
-      - 27017:27017 
-    restart: always
-    command: mongod --replSet rs0 --bind_ip_all
-  mongo2:
-    hostname: mongo2
-    image: mongo:4.2.23-bionic
-    expose:
-      - 27017
+      - 27017:27017
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo1:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+      args:
+        - BUILD_CONTEXT=frontend
+    volumes:
+      - ./packages/config:/packages/config
+    environment:
+      REACT_APP_API_BASE: http://localhost:8081/api/v1
     ports:
-      - 27018:27017
-    restart: always
-    command: mongod --replSet rs0 --bind_ip_all
-  mongoinit:
-    image: mongo:4.2.23-bionic
-    # this container will exit after executing the command
-    restart: "no"
+      - '8080:80'
     depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+      args:
+        - BUILD_CONTEXT=backend
+    environment:
+      NODE_ENV: production
+    ports:
+      - '8081:8081'
+    links:
       - mongo1
-      - mongo2
-    command: >
-      mongo --host mongo1:27017 -eval
-      '
-      rs.initiate({
-      "_id": "rs0",
-      "members": [
-        {
-          "_id" : 0,
-          "host" : "mongo1:27017",
-          "priority" : 100
-        },
-        {
-          "_id" : 1,
-          "host" : "mongo2:27017",
-          "priority" : 50
-        }
-      ]
-      });
-      rs.status();
-      '
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 20s
+      timeout: 15s
+      retries: 5
+    depends_on:
+      mongo1:
+        condition: service_healthy

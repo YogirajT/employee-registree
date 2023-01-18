@@ -4,12 +4,6 @@ export type EmployeeRegistryConfig = {
   ROUTES_DIR: string
 };
 
-
-export const Config: EmployeeRegistryConfig = {
-  PORT: 4000,
-  ROUTES_DIR: "/src/routes/",
-};
-
 /* Common */
 
 export enum UserRole {
@@ -69,6 +63,3 @@ export type UserSaveRequest = {
   job_title?: string,
   department?: string | null,
 }
-
-
-export default Config;
