@@ -16,6 +16,7 @@ COPY ./$BUILD_CONTEXT ./$BUILD_CONTEXT/
 COPY ./packages/config ./packages/config/
 
 ENV MONGO_URL mongodb://mongo1:27017?directConnection=true
+RUN npm install typescript -g
 
 RUN yarn build:config
 RUN yarn build:$BUILD_CONTEXT

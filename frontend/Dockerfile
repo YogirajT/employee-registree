@@ -14,6 +14,7 @@ RUN yarn install --frozen-lockfile --production
 
 COPY ./$BUILD_CONTEXT ./$BUILD_CONTEXT/
 COPY ./packages/config ./packages/config/
+RUN npm install typescript -g
 
 RUN yarn build:config
 RUN yarn build:$BUILD_CONTEXT

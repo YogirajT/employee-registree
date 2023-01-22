@@ -4,13 +4,15 @@ import { get } from "../../utils";
 import { ActionLogTable } from "../tables/ActionLogTable";
 import { actionLogResponseToTableRowsTransformer } from "../../utils/transformers";
 import { logModalStyle } from "../../common";
+import store from "store2";
 
 export const ActionLogModal = ({ openLog, handleClose, userId }) => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     if (userId) {
-      get(`/users/${userId}/action-logs`)
+      const jwt = store.get("auth_jwt");
+      get(`/users/${userId}/action-logs`, {}, jwt)
         .then((result) => {
           setRows(result.data.map(actionLogResponseToTableRowsTransformer));
         })
