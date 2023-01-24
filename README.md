@@ -25,7 +25,7 @@ An application to help with employees and department management.
     sudo docker-compose up
     ```
 
-* After the isntalltion completes the server should be available on 
+* After the installtion completes the server should be available on 
     ```
     http://localhost:8080
     ````
@@ -37,7 +37,7 @@ An application to help with employees and department management.
 
 ## Usage
 
-* When the server starts for the first time a super-user record is create with ID: `super` and password: `password`
+* When the server starts for the first time a super-user record is create with ID: `super` and password: `super`
 * Super user can be used to add users and change Roles of other users.
 * By default Frontend runs on `http://localhost:8080` Backend on `http://localhost:8081` and mongodb on `mongo1:27017`
 
