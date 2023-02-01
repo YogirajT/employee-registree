@@ -33,7 +33,7 @@ export default class UserService {
           .create({
             _id: new ObjectId(),
             username: "super",
-            password: hashSync("super", genSaltSync(this._env.saltLen)),
+            password: hashSync(this._env.defaultSuperPassword, genSaltSync(this._env.saltLen)),
             first_name: "Super",
             role: UserRole.SUPER,
             department: null,
