@@ -1,15 +1,13 @@
 services:
 
   mongo1:
-    hostname: mongo1
+    hostname: ${DOCKER_MONGO_HOSTNAME}
     image: mongo:4.2.23-bionic
     expose:
-      - 27017
-    ports:
-      - 27017:27017
+      - ${DOCKER_MONGO_PORT}
     restart: unless-stopped
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongo1:27017/test --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo ${DOCKER_MONGO_HOSTNAME}:${DOCKER_MONGO_PORT}/test --quiet
       interval: 10s
       timeout: 10s
       retries: 5
@@ -22,12 +20,13 @@ services:
       dockerfile: ./frontend/Dockerfile
       args:
         - BUILD_CONTEXT=frontend
+        - DOCKER_FRONTEND_HOST_PORT=${DOCKER_FRONTEND_HOST_PORT}
     volumes:
       - ./packages/config:/packages/config
     environment:
-      REACT_APP_API_BASE: http://localhost:8081/api/v1
+      REACT_APP_API_BASE: http://${DOCKER_BACKEND_HOST}:${DOCKER_BACKEND_PORT}/${DOCKER_BACKEND_API_VERSION}
     ports:
-      - '8080:80'
+      - '${DOCKER_FRONTEND_CONTAINER_PORT}:${DOCKER_FRONTEND_HOST_PORT}'
     depends_on:
       backend:
         condition: service_healthy
@@ -39,14 +38,18 @@ services:
       dockerfile: ./backend/Dockerfile
       args:
         - BUILD_CONTEXT=backend
+        - DOCKER_BACKEND_APP_PORT=${DOCKER_BACKEND_APP_PORT}
+        - DOCKER_MONGO_PORT=${DOCKER_MONGO_PORT}
+        - DOCKER_MONGO_URL=mongodb://${DOCKER_MONGO_HOSTNAME}:${DOCKER_MONGO_PORT}?directConnection=true
     environment:
       NODE_ENV: production
+      PORT: ${DOCKER_BACKEND_APP_PORT}
     ports:
-      - '8081:8081'
+      - '${DOCKER_BACKEND_PORT}:${DOCKER_BACKEND_PORT}'
     links:
-      - mongo1
+      - ${DOCKER_MONGO_HOSTNAME}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      test: ["CMD", "curl", "-f", "http://${DOCKER_BACKEND_HOST}:${DOCKER_BACKEND_PORT}/health"]
       interval: 20s
       timeout: 15s
       retries: 5

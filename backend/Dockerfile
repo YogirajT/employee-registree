@@ -1,6 +1,8 @@
 #build
 FROM node:19.4-bullseye as build
 ARG BUILD_CONTEXT
+ARG DOCKER_BACKEND_APP_PORT
+ARG DOCKER_MONGO_URL
 
 WORKDIR /app
 
@@ -15,12 +17,12 @@ RUN yarn install --frozen-lockfile
 COPY ./$BUILD_CONTEXT ./$BUILD_CONTEXT/
 COPY ./packages/config ./packages/config/
 
-ENV MONGO_URL mongodb://mongo1:27017?directConnection=true
+ENV MONGO_URL $DOCKER_MONGO_URL
 RUN npm install typescript -g
 
 RUN yarn build:config
 RUN yarn build:$BUILD_CONTEXT
 
-EXPOSE 8081
+EXPOSE $DOCKER_BACKEND_APP_PORT
 
 CMD node /app/backend/build/index.js

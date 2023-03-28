@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "outDir": "./build",
     "typeRoots": ["./node_modules/@types"],
-    "types": ["reflect-metadata", "jest", "node"],
+    "types": ["reflect-metadata", "node"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "rootDir": "src"

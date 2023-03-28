@@ -20,6 +20,8 @@ An application to help with employees and department management.
     https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04
     ```
 
+* Set up .env file in the monorepo root by referring to .env-template 
+
 * Run command 
     ```
     sudo docker-compose up
@@ -51,6 +53,9 @@ An application to help with employees and department management.
 * All deletes are soft deletes.
 
 ** ID key has a _ suffix. (need to figure out how mermaid JS escapes special chars)
+
+* If the following diagram doesn't work install mermaid js plugin for vs code.
+
 ```mermaid
 erDiagram
     USER-EMPLOYEE {
@@ -159,12 +164,13 @@ sequenceDiagram
 | packages  |   | common modules |
 |  | \config  | BE + FE common interfaces and shared code |
 | .docker-compose  |   | docker orchestrator |
+| .env-template  |   | docker-compose env template |
 | .docker-compose  |   | docker orchestrator |
 | .package.json  |   |  |
 | .yarn.lock  |   |  |
 
 
-## Addition Info
+## Additional Info
 
 * Details of BE structure and architecture can be found here
 [Layered architecture](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html)

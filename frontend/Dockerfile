@@ -1,6 +1,7 @@
 #build
 FROM node:19.4-bullseye as build
 ARG BUILD_CONTEXT
+ARG DOCKER_FRONTEND_HOST_PORT
 
 WORKDIR /app
 
@@ -24,7 +25,7 @@ FROM nginx:stable-alpine
 ARG BUILD_CONTEXT
 COPY --from=build /app/$BUILD_CONTEXT/build /usr/share/nginx/html
 COPY ./$BUILD_CONTEXT/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+EXPOSE ${DOCKER_FRONTEND_HOST_PORT}
 CMD ["nginx", "-g", "daemon off;"]
 
 
