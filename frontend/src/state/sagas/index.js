@@ -225,6 +225,7 @@ function* createUsers(action) {
     yield call(post, "/users", { users: payload }, {}, jwt);
     yield put({ type: ActionTypes.CREATE_USER_SUCCEEDED });
     yield put({ type: ActionTypes.USER_LIST_REQUESTED });
+    yield put({ type: ActionTypes.DEPARTMENT_LIST_REQUESTED });
   } catch (error) {
     yield put({
       type: ActionTypes.REGISTRATION_FAILED,
